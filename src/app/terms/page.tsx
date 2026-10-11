@@ -74,7 +74,7 @@ export default function TermsPage() {
           </Section>
 
           <Section title="5. Penafian Tanggung Jawab">
-            <p>Situs dan layanan disediakan "sebagaimana adanya". Kami tidak menjamin bahwa:</p>
+            <p>Situs dan layanan disediakan &ldquo;sebagaimana adanya&rdquo;. Kami tidak menjamin bahwa:</p>
             <List items={[
               'Situs akan bebas dari kesalahan atau gangguan',
               'Informasi di Situs selalu akurat dan terkini',

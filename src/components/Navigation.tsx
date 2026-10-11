@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false)
@@ -22,7 +23,7 @@ export default function Navigation() {
     >
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
-        <a href="/" className="flex items-center gap-3 group">
+        <Link href="/" className="flex items-center gap-3 group">
           {/* SVG Logo Mark */}
           <svg
             width="42"
@@ -82,7 +83,7 @@ export default function Navigation() {
               Beauty &amp; Care
             </span>
           </div>
-        </a>
+        </Link>
 
         {/* Desktop menu */}
         <div className="hidden md:flex items-center gap-8">

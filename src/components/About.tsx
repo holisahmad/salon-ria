@@ -69,7 +69,7 @@ export default function About() {
 
             {/* Blockquote */}
             <blockquote className="border-l-4 border-brand pl-5 mb-6 italic text-gray-500 text-lg leading-relaxed" style={{ fontFamily: 'Playfair Display, serif' }}>
-              "Setiap wanita berhak merasakan kecantikan terbaiknya — dan kami ada untuk mewujudkannya."
+              &ldquo;Setiap wanita berhak merasakan kecantikan terbaiknya — dan kami ada untuk mewujudkannya.&rdquo;
             </blockquote>
 
             <p className="text-gray-600 leading-relaxed mb-4">
@@ -119,7 +119,7 @@ export default function About() {
             className="text-white text-2xl md:text-3xl italic font-medium mb-6 relative z-10 max-w-3xl mx-auto leading-relaxed"
             style={{ fontFamily: 'Playfair Display, serif' }}
           >
-            "Sudah langganan lebih dari 5 tahun. Pelayananya ramah, hasilnya selalu memuaskan. Salon Ria yang terbaik di Tangerang!"
+            &ldquo;Sudah langganan lebih dari 5 tahun. Pelayananya ramah, hasilnya selalu memuaskan. Salon Ria yang terbaik di Tangerang!&rdquo;
           </p>
           <div className="flex items-center justify-center gap-3 relative z-10">
             <div className="w-10 h-10 rounded-full bg-brand flex items-center justify-center text-white font-bold text-sm">S</div>
