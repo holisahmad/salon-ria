@@ -145,6 +145,7 @@ export default function Contact() {
                       placeholder="Nama Anda"
                       className="w-full px-4 py-3 border border-stone-200 rounded-xl bg-[#faf7f4] focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand text-sm transition"
                       required
+                      suppressHydrationWarning
                     />
                   </div>
                   <div>
@@ -154,13 +155,14 @@ export default function Contact() {
                       placeholder="+62..."
                       className="w-full px-4 py-3 border border-stone-200 rounded-xl bg-[#faf7f4] focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand text-sm transition"
                       required
+                      suppressHydrationWarning
                     />
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2">Pilih Layanan</label>
-                  <select className="w-full px-4 py-3 border border-stone-200 rounded-xl bg-[#faf7f4] focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand text-sm text-gray-700 transition">
+                  <select className="w-full px-4 py-3 border border-stone-200 rounded-xl bg-[#faf7f4] focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand text-sm text-gray-700 transition" suppressHydrationWarning>
                     <option value="">Pilih layanan yang diinginkan</option>
                     <option>Perawatan Wajah</option>
                     <option>Potong &amp; Styling Rambut</option>
@@ -194,6 +196,7 @@ export default function Contact() {
                   type="submit"
                   disabled={loading}
                   className="w-full bg-brand text-white py-4 rounded-xl font-semibold tracking-wide hover:bg-brand-dark transition-all duration-300 shadow-md shadow-brand/20 hover:-translate-y-0.5 disabled:opacity-70 disabled:translate-y-0 flex items-center justify-center gap-2"
+                  suppressHydrationWarning
                 >
                   {loading ? (
                     <>
