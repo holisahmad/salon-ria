@@ -104,11 +104,11 @@ export default function Footer() {
             &copy; {currentYear} <span className="text-stone-400">Salon Ria</span>. Semua hak dilindungi.
           </p>
           <div className="flex items-center gap-6 text-stone-500 text-xs uppercase tracking-wider">
-            <a href="/privacy.html" className="hover:text-brand transition">Privasi</a>
+            <a href="/privacy" className="hover:text-brand transition">Privasi</a>
             <span className="text-stone-700">·</span>
-            <a href="/terms.html" className="hover:text-brand transition">Ketentuan</a>
+            <a href="/terms" className="hover:text-brand transition">Ketentuan</a>
             <span className="text-stone-700">·</span>
-            <a href="#" className="hover:text-brand transition">Sitemap</a>
+            <a href="/sitemap-page" className="hover:text-brand transition">Sitemap</a>
           </div>
         </div>
       </div>
