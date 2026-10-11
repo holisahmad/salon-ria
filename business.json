@@ -1,0 +1,33 @@
+{
+  "name": "Salon Ria",
+  "address": "Jl. HOS Cokroaminoto No. 58 E, RT001/001, Ciledug, Tangerang 15151, Indonesia",
+  "phone": "+6285655268945",
+  "email": "kismovejaya@gmail.com",
+  "website": "https://salonria.com",
+  "type": "Beauty Salon",
+  "services": [
+    "Perawatan Wajah",
+    "Potong & Styling Rambut",
+    "Manicure & Pedicure",
+    "Massage & Spa",
+    "Makeup Profesional",
+    "Perawatan Kulit Organik"
+  ],
+  "businessHours": {
+    "monday": "09:00-19:00",
+    "tuesday": "09:00-19:00",
+    "wednesday": "09:00-19:00",
+    "thursday": "09:00-19:00",
+    "friday": "09:00-19:00",
+    "saturday": "09:00-19:00",
+    "sunday": "09:00-19:00"
+  },
+  "rating": {
+    "value": 4.8,
+    "count": 150,
+    "maxValue": 5
+  },
+  "socialMedia": {
+    "whatsapp": "+6285655268945"
+  }
+}
