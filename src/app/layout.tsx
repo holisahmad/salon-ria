@@ -20,7 +20,9 @@ export const metadata: Metadata = {
     }],
   },
   robots: 'index, follow',
-  canonical: 'https://salonria.com',
+  alternates: {
+    canonical: 'https://salonria.com',
+  },
 }
 
 export default function RootLayout({
