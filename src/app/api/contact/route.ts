@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
                 <tr>
                   <td style="padding:40px;">
                     <p style="margin:0 0 24px;color:#6b7280;font-size:14px;line-height:1.6;">
-                      Halo Admin, ada calon pelanggan yang mengirim pesan melalui website <strong>salonria.com</strong> pada <strong>${timestamp}</strong>.
+                      Halo Admin, ada calon pelanggan yang mengirim pesan melalui website <strong>salon-ria.vercel.app</strong> pada <strong>${timestamp}</strong>.
                     </p>
 
                     <!-- Info pelanggan -->
@@ -108,7 +108,7 @@ export async function POST(req: NextRequest) {
                 <tr>
                   <td style="background:#faf7f4;padding:20px 40px;text-align:center;border-top:1px solid #f0ebe4;">
                     <p style="margin:0;font-size:12px;color:#9ca3af;">
-                      Email ini dikirim otomatis dari <a href="https://salon-ria.vercel.app" style="color:#d4a574;text-decoration:none;">salonria.com</a>
+                      Email ini dikirim otomatis dari <a href="https://salon-ria.vercel.app" style="color:#d4a574;text-decoration:none;">salon-ria.vercel.app</a>
                       &nbsp;·&nbsp; Jl. HOS Cokroaminoto No. 58 E, Tangerang
                     </p>
                   </td>

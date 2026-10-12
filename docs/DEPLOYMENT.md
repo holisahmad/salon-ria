@@ -58,8 +58,8 @@ vercel --prod
 
 ### 1. DNS & Domain
 - [ ] Update nameservers at registrar
-- [ ] DNS propagation check: `dig salonria.com`
-- [ ] SSL certificate verify: https://salonria.com
+- [ ] DNS propagation check: `dig salon-ria.vercel.app`
+- [ ] SSL certificate verify: https://salon-ria.vercel.app
 - [ ] Redirect http → https
 
 ### 2. SEO Verification
@@ -112,7 +112,7 @@ async function sendMessage(formData) {
 
 **C. Backend API**
 ```bash
-curl -X POST https://api.salonria.com/contact \
+curl -X POST https://api.salon-ria.vercel.app/contact \
   -H "Content-Type: application/json" \
   -d '{"name":"...", "phone":"...", "message":"..."}'
 ```
@@ -201,10 +201,10 @@ Content-Security-Policy: default-src 'self'; style-src 'unsafe-inline'; img-src 
 **Site not loading?**
 ```bash
 # Check DNS
-nslookup salonria.com
+nslookup salon-ria.vercel.app
 
 # Check HTTP status
-curl -I https://salonria.com
+curl -I https://salon-ria.vercel.app
 ```
 
 **Contact form not working?**

@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://salonria.com/</loc>
+    <loc>https://salon-ria.vercel.app/</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://salonria.com/#services</loc>
+    <loc>https://salon-ria.vercel.app/#services</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://salonria.com/#about</loc>
+    <loc>https://salon-ria.vercel.app/#about</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://salonria.com/#contact</loc>
+    <loc>https://salon-ria.vercel.app/#contact</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://salonria.com/privacy</loc>
+    <loc>https://salon-ria.vercel.app/privacy</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://salonria.com/terms</loc>
+    <loc>https://salon-ria.vercel.app/terms</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>

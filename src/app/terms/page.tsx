@@ -47,7 +47,7 @@ export default function TermsPage() {
 
           <Section title="2. Definisi">
             <List items={[
-              'Situs: situs web salonria.com beserta semua konten dan layanan di dalamnya',
+              'Situs: situs web salon-ria.vercel.app beserta semua konten dan layanan di dalamnya',
               'Layanan: layanan salon kecantikan profesional yang kami tawarkan',
               'Pengguna: individu yang mengakses atau menggunakan Situs atau layanan kami',
               'Konten: semua teks, gambar, video, dan materi lain yang ada di Situs',

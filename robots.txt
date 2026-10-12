@@ -9,4 +9,4 @@ Disallow: /api
 Disallow: /*.json$
 Disallow: /*.xml$
 
-Sitemap: https://salonria.com/sitemap.xml
+Sitemap: https://salon-ria.vercel.app/sitemap.xml

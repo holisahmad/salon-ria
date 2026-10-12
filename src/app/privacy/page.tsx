@@ -42,7 +42,7 @@ export default function PrivacyPage() {
           </p>
 
           <Section title="1. Pendahuluan">
-            <p>Salon Ria mengoperasikan situs web salonria.com. Halaman ini menginformasikan kebijakan privasi kami mengenai pengumpulan, penggunaan, dan pengungkapan data pribadi ketika Anda menggunakan Situs kami.</p>
+            <p>Salon Ria mengoperasikan situs web salon-ria.vercel.app. Halaman ini menginformasikan kebijakan privasi kami mengenai pengumpulan, penggunaan, dan pengungkapan data pribadi ketika Anda menggunakan Situs kami.</p>
           </Section>
 
           <Section title="2. Jenis Data yang Kami Kumpulkan">

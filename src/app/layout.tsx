@@ -9,19 +9,19 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'id_ID',
-    url: 'https://salonria.com',
+    url: 'https://salon-ria.vercel.app',
     siteName: 'Salon Ria',
     title: 'Salon Ria - Salon Kecantikan Profesional di Tangerang',
     description: 'Layanan perawatan kecantikan profesional dengan standar internasional',
     images: [{
-      url: 'https://salonria.com/og-image.jpg',
+      url: 'https://salon-ria.vercel.app/og-image.jpg',
       width: 1200,
       height: 630,
     }],
   },
   robots: 'index, follow',
   alternates: {
-    canonical: 'https://salonria.com',
+    canonical: 'https://salon-ria.vercel.app',
   },
 }
 

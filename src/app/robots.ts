@@ -5,6 +5,6 @@ export default function robots() {
       allow: '/',
       disallow: ['/admin', '/api'],
     },
-    sitemap: 'https://salonria.com/sitemap.xml',
+    sitemap: 'https://salon-ria.vercel.app/sitemap.xml',
   }
 }
