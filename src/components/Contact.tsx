@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 
 const contactItems = [
   {
@@ -48,18 +48,67 @@ const contactItems = [
   },
 ]
 
-export default function Contact() {
-  const [submitted, setSubmitted] = useState(false)
-  const [loading, setLoading] = useState(false)
+type Status = 'idle' | 'loading' | 'success' | 'error'
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+export default function Contact() {
+  const [status, setStatus] = useState<Status>('idle')
+  const [errorMsg, setErrorMsg] = useState('')
+  const formRef = useRef<HTMLFormElement>(null)
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
-      setSubmitted(true)
-      setTimeout(() => setSubmitted(false), 4000)
-    }, 1000)
+    setStatus('loading')
+    setErrorMsg('')
+
+    const form = e.currentTarget
+    const data = {
+      nama: (form.elements.namedItem('nama') as HTMLInputElement).value.trim(),
+      telepon: (form.elements.namedItem('telepon') as HTMLInputElement).value.trim(),
+      layanan: (form.elements.namedItem('layanan') as HTMLSelectElement).value,
+      pesan: (form.elements.namedItem('pesan') as HTMLTextAreaElement).value.trim(),
+    }
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+
+      if (res.ok) {
+        setStatus('success')
+        formRef.current?.reset()
+        // Reset ke idle setelah 6 detik
+        setTimeout(() => setStatus('idle'), 6000)
+      } else {
+        const json = await res.json()
+        setErrorMsg(json.error || 'Gagal mengirim pesan.')
+        setStatus('error')
+      }
+    } catch {
+      setErrorMsg('Tidak dapat terhubung ke server. Periksa koneksi Anda.')
+      setStatus('error')
+    }
+  }
+
+  // Buat WA message dari nilai form saat ini
+  const buildWaUrl = () => {
+    if (!formRef.current) return 'https://wa.me/6285655268945'
+    const form = formRef.current
+    const nama = (form.elements.namedItem('nama') as HTMLInputElement)?.value || ''
+    const telepon = (form.elements.namedItem('telepon') as HTMLInputElement)?.value || ''
+    const layanan = (form.elements.namedItem('layanan') as HTMLSelectElement)?.value || ''
+    const pesan = (form.elements.namedItem('pesan') as HTMLTextAreaElement)?.value || ''
+
+    const msg = [
+      'Halo Salon Ria, saya ingin bertanya/memesan layanan.',
+      nama ? `Nama: ${nama}` : '',
+      telepon ? `No. HP: ${telepon}` : '',
+      layanan ? `Layanan: ${layanan}` : '',
+      pesan ? `Pesan: ${pesan}` : '',
+    ].filter(Boolean).join('\n')
+
+    return `https://wa.me/6285655268945?text=${encodeURIComponent(msg)}`
   }
 
   return (
@@ -134,13 +183,18 @@ export default function Contact() {
               >
                 Kirim Pesan
               </h3>
-              <p className="text-gray-500 text-sm mb-8">Isi form berikut dan kami akan menghubungi Anda segera.</p>
+              <p className="text-gray-500 text-sm mb-8">
+                Isi form berikut dan kami akan menghubungi Anda segera — atau langsung chat via WhatsApp.
+              </p>
 
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2">Nama Lengkap</label>
+                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2">
+                      Nama Lengkap
+                    </label>
                     <input
+                      name="nama"
                       type="text"
                       placeholder="Nama Anda"
                       className="w-full px-4 py-3 border border-stone-200 rounded-xl bg-[#faf7f4] focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand text-sm transition"
@@ -149,10 +203,13 @@ export default function Contact() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2">No. Telepon</label>
+                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2">
+                      No. Telepon / WhatsApp
+                    </label>
                     <input
+                      name="telepon"
                       type="tel"
-                      placeholder="+62..."
+                      placeholder="08xx / +62xx"
                       className="w-full px-4 py-3 border border-stone-200 rounded-xl bg-[#faf7f4] focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand text-sm transition"
                       required
                       suppressHydrationWarning
@@ -161,8 +218,14 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2">Pilih Layanan</label>
-                  <select className="w-full px-4 py-3 border border-stone-200 rounded-xl bg-[#faf7f4] focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand text-sm text-gray-700 transition" suppressHydrationWarning>
+                  <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2">
+                    Pilih Layanan
+                  </label>
+                  <select
+                    name="layanan"
+                    className="w-full px-4 py-3 border border-stone-200 rounded-xl bg-[#faf7f4] focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand text-sm text-gray-700 transition"
+                    suppressHydrationWarning
+                  >
                     <option value="">Pilih layanan yang diinginkan</option>
                     <option>Perawatan Wajah</option>
                     <option>Potong &amp; Styling Rambut</option>
@@ -175,40 +238,87 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2">Pesan</label>
+                  <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2">
+                    Pesan
+                  </label>
                   <textarea
+                    name="pesan"
                     placeholder="Tuliskan pertanyaan atau kebutuhan Anda..."
                     rows={4}
                     className="w-full px-4 py-3 border border-stone-200 rounded-xl bg-[#faf7f4] focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand text-sm transition resize-none"
                   />
                 </div>
 
-                {submitted && (
-                  <div className="flex items-center gap-3 bg-green-50 border border-green-200 text-green-700 p-4 rounded-xl text-sm">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                {/* Status messages */}
+                {status === 'success' && (
+                  <div className="flex items-start gap-3 bg-green-50 border border-green-200 text-green-800 p-4 rounded-xl text-sm">
+                    <svg className="flex-shrink-0 mt-0.5" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <polyline points="20 6 9 17 4 12" />
                     </svg>
-                    Pesan terkirim! Kami akan segera menghubungi Anda.
+                    <div>
+                      <p className="font-semibold">Pesan berhasil terkirim!</p>
+                      <p className="text-green-700 mt-0.5">Email notifikasi telah dikirim ke admin Salon Ria. Kami akan menghubungi Anda segera.</p>
+                    </div>
                   </div>
                 )}
 
+                {status === 'error' && (
+                  <div className="flex items-start gap-3 bg-red-50 border border-red-200 text-red-800 p-4 rounded-xl text-sm">
+                    <svg className="flex-shrink-0 mt-0.5" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                    </svg>
+                    <div>
+                      <p className="font-semibold">Gagal mengirim pesan</p>
+                      <p className="text-red-700 mt-0.5">{errorMsg} Coba kirim via WhatsApp di bawah.</p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Submit button */}
                 <button
                   type="submit"
-                  disabled={loading}
-                  className="w-full bg-brand text-white py-4 rounded-xl font-semibold tracking-wide hover:bg-brand-dark transition-all duration-300 shadow-md shadow-brand/20 hover:-translate-y-0.5 disabled:opacity-70 disabled:translate-y-0 flex items-center justify-center gap-2"
+                  disabled={status === 'loading' || status === 'success'}
+                  className="w-full bg-brand text-white py-4 rounded-xl font-semibold tracking-wide hover:bg-brand-dark transition-all duration-300 shadow-md shadow-brand/20 hover:-translate-y-0.5 disabled:opacity-60 disabled:translate-y-0 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   suppressHydrationWarning
                 >
-                  {loading ? (
+                  {status === 'loading' ? (
                     <>
                       <svg className="animate-spin" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M21 12a9 9 0 11-6.219-8.56" />
                       </svg>
                       Mengirim...
                     </>
+                  ) : status === 'success' ? (
+                    <>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                      Terkirim!
+                    </>
                   ) : (
-                    'Kirim Pesan'
+                    'Kirim Pesan via Email'
                   )}
                 </button>
+
+                {/* Divider */}
+                <div className="flex items-center gap-3">
+                  <div className="flex-1 h-px bg-stone-200" />
+                  <span className="text-stone-400 text-xs uppercase tracking-widest">atau</span>
+                  <div className="flex-1 h-px bg-stone-200" />
+                </div>
+
+                {/* WhatsApp alternative */}
+                <a
+                  href={buildWaUrl()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full flex items-center justify-center gap-3 bg-[#25d366] hover:bg-[#1ebe5d] text-white py-4 rounded-xl font-semibold tracking-wide transition-all duration-300 hover:-translate-y-0.5 shadow-md shadow-green-200/50"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                  </svg>
+                  Kirim Pesan via WhatsApp
+                </a>
               </form>
             </div>
           </div>
